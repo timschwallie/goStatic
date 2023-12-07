@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Data;
 
 namespace Api;
 
@@ -38,12 +38,19 @@ public class ProductData : IProductData
                 Name = "Apples",
                 Description = "Bag of 7 fresh McIntosh apples",
                 Quantity = 1
+            },
+            new Product
+            {
+                Id = 40,
+                Name = "Bananas",
+                Description = "6 fresh Bananas",
+                Quantity = 1
             }
         };
 
     private int GetRandomInt()
     {
-        var random = new Random();
+        Random random = new Random();
         return random.Next(100, 1000);
     }
 
@@ -56,14 +63,14 @@ public class ProductData : IProductData
 
     public Task<Product> UpdateProduct(Product product)
     {
-        var index = products.FindIndex(p => p.Id == product.Id);
+        int index = products.FindIndex(p => p.Id == product.Id);
         products[index] = product;
         return Task.FromResult(product);
     }
 
     public Task<bool> DeleteProduct(int id)
     {
-        var index = products.FindIndex(p => p.Id == id);
+        int index = products.FindIndex(p => p.Id == id);
         products.RemoveAt(index);
         return Task.FromResult(true);
     }
